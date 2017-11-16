@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <aura:attribute type="String" name="sObjectId" />
+    <aura:attribute type="String" name="lat" />
+    <aura:attribute type="String" name="long" />
+    <aura:attribute type="String" name="label" />
+</aura:event>

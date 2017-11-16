@@ -1,0 +1,54 @@
+<aura:component controller="BoatReviews">
+    <aura:attribute name="boat" type="Boat__c"/>
+    <aura:attribute name="boatReviews" type="BoatReview__c[]" access="private"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.boat}" action="{!c.doInit}"/>
+    
+    <aura:method name="refresh" action="{!c.doInit}" description="Search method with parameters" access="public" />     
+    
+    <div class="slds-feed">
+        <ul class="slds-feed__list">
+            <ui:scrollerWrapper class="scrollerSize">
+                <aura:if isTrue="{!not(empty(v.boatReviews))}">
+                    <aura:iteration items="{!v.boatReviews}" var="boatReview">
+                        <li class="slds-feed__item">
+                            <article class="slds-post">
+                                <header class="slds-post__header slds-media">
+                                    <div class="slds-media__figure">
+                                        <a href="javascript:void(0);" class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                            <img alt="Jason Rodgers" src="{!v.boatReview.CreatedBy.SmallPhotoUrl}" title="{!v.boatReview.CreatedBy.Name}" />
+                                        </a>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                                            <p><a href="javascript:void(0);" title="{!v.boatReview.CreatedBy.Name}" onclick="{!c.onUserInfoClick}" data-userid="{!v.boatReview.CreatedBy.Id}">{!v.boatReview.CreatedBy.Name}</a>— <a href="javascript:void(0);" title="{!v.boatReview.CreatedBy.CompanyName}">{!v.boatReview.CreatedBy.CompanyName}</a></p>
+                                            <button class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small"
+                                                    aria-haspopup="true" title="More Options">
+                                                <span class="slds-assistive-text">More Options</span>
+                                            </button>
+                                        </div>
+                                        <p class="slds-text-body_small"><a href="javascript:void(0);" title="Click for single-item view of this post" class="slds-text-link_reset">{!v.boatReview.CreatedDate}</a></p>
+                                    </div>
+                                </header>
+                                <div class="slds-post__content slds-text-longform">
+                                    <p>{!v.boatReview.Name}</p>
+                                    <p>{!v.boatReview.Comment__c}</p>
+                                    <c:FiveStarRating value="{!v.boatReview.Rating__c}" readonly="read"/>
+                                </div>
+                                <footer class="slds-post__footer">
+                                    <c:FiveStarRating value="{!v.boatReview.Rating__c}" readonly="read"/>
+                                </footer>
+                            </article>
+                            <c:FiveStarRating value="{!v.boatReview.Rating__c}" readonly="read"/>
+                        </li>
+                    </aura:iteration>
+                    <aura:set attribute="else">
+                        <div class="slds-align_absolute-center">No Reviews Available</div>
+                    </aura:set>
+                </aura:if> 
+ 
+        </ui:scrollerWrapper>
+    </ul>
+</div>
+
+</aura:component>

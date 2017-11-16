@@ -1,0 +1,12 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="value" type="Integer" default="0" access="public"/>
+    <aura:attribute name="readonly" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.value}" action="{!c.onValueChange}"/>
+    
+    <ltng:require styles="{!$Resource.fivestar + '/rating.css'}"
+        scripts="{!$Resource.fivestar + '/rating.js'}"
+        afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <ul aura:id="ratingarea" id="ratingarea" class="{!readonly == 'read' ? 'readonly c-rating' : 'c-rating' }">
+    </ul>
+</aura:component>
